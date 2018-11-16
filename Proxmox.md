@@ -4,18 +4,19 @@
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Découverte <a name="Découverte"></a>](#dcouverte-a-namedcouvertea)
-- [Caractéristiques de Proxmox VE <a name="Caractéristiques de Proxmox VE"></a>](#caractristiques-de-proxmox-ve-a-namecaractristiques-de-proxmox-vea)
-- [Lab. <a name="Lab."></a>](#lab-a-namelaba)
-	- [Hardware <a name="Hardware"></a>](#hardware-a-namehardwarea)
-	- [Installlation <a name="Installation"></a>](#installlation-a-nameinstallationa)
-	- [Configurations <a name="Configurations"></a>](#configurations-a-nameconfigurationsa)
-		- [Network configurations <a name="Network configurations"></a>](#network-configurations-a-namenetwork-configurationsa)
-		- [DNS <a name="DNS"></a>](#dns-a-namednsa)
+- [Sommaire](#sommaire)
+	- [Découverte](#dcouverte)
+	- [Caractéristiques de Proxmox VE](#caractristiques-de-proxmox-ve)
+	- [Lab.](#lab)
+		- [Hardware](#hardware)
+		- [Installlation](#installlation)
+		- [Configurations](#configurations)
+			- [Network configurations](#network-configurations)
+			- [DNS](#dns)
 
 <!-- /TOC -->
 
-## Découverte <a name="Découverte"></a>
+## Découverte
 
  Proxmox Virtual Environment est une solution de virtualisation libre (licence AGPLv3) basée sur l'hyperviseur Linux KVM, et offre aussi une solution de containers avec LXC.
 
@@ -34,7 +35,7 @@
  - Interface web d'administration et de supervision.
  - Fonctions de clustering qui permet par exemple la migration à chaud des machines virtuelles d'un serveur physique à un autre (à condition d'utiliser un stockage partagé, SAN, ou Ceph sinon la migration entraîne une courte interruption lors du redémarrage sur un autre nœud du cluster).
 
-## Caractéristiques de Proxmox VE <a name="Caractéristiques de Proxmox VE"></a>
+## Caractéristiques de Proxmox VE
 
 Propose 2 types de virtualisation :
 - virtualisation matérielle (ou complète) : KVM : permet la virtualisation de tout système d'exploitation sur des processeurs d'architectures x86_64 disposant des technologies Intel VT ou AMD-V.
@@ -43,18 +44,28 @@ Propose 2 types de virtualisation :
 - gratuit (mais support payant)
 
 
-## Lab. <a name="Lab."></a>
+## Lab.
 
 Proxmox permet de se monter un Labo à domicile à moindre frais !
 
-### Hardware <a name="Hardware"></a>
+> A adapter selon votre FAI
+
+Pour exemple :
+- Hostname : PVE
+- IP : 192.168.1.250
+- Subnet Mask : 255.255.255.0
+- Gateway : 192.168.1.254
+- Partition type : ZFS (RAID0)
+- DNS : 8.8.8.8, 8.8.4.4
+
+### Hardware
 
 - CPU : x86_64 disposant des technologies Intel VT ou AMD-V
 - RAM : 8GB (ou +)
 - Disk : 500 GB (RAID0 - pour de meilleurs performances)
 - LAN : Une carte Ethernet Gigabit (ou +)
 
-### Installlation <a name="Installation"></a>
+### Installlation
 
 Récuperez le media d'installation et le guide :
 
@@ -62,9 +73,9 @@ Récuperez le media d'installation et le guide :
 - [Proxmox VE Admin Guide ](https://www.proxmox.com/en/downloads/item/proxmox-ve-admin-guide-for-5-x)
 
 
-### Configurations <a name="Configurations"></a>
+### Configurations
 
-#### Network configurations <a name="Network configurations"></a>
+#### Network configurations
 
 A l'aide de l'interface web :
 
@@ -72,11 +83,9 @@ Selectionnez :
 - Noeud (PVE)
 	- Network
 
-![Network](/Images/Proxmox/Network/sc_1.png)
+![Network](./Images/Proxmox/Network/sc_1.png)
 
-> A adapter selon votre FAI
-
-Nous allons créer un Linux Bridge (vmbr0)
+L'assistant d'installation à crée automatiquement :
 
 - Names : vmbr0
 - Type : Linux Bridge
@@ -88,7 +97,16 @@ Nous allons créer un Linux Bridge (vmbr0)
 
 > A noter qu'un bridge peux agréger plusieurs cartes ethernet
 
-#### DNS <a name="DNS"></a>
+#### DNS
+
+A l'aide de l'interface web :
+
+Selectionnez :
+- Noeud (PVE)
+	- Network
+		- DNS
+
+![Network](./Images/Proxmox/Network/sc_2.png)
 
 > Pour le moment nous utiliserons les DNS de Google, cette configuration évoluera lors que nous deployerons notre DNS local.
 
